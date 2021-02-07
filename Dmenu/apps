@@ -1,0 +1,41 @@
+#!/bin/bash
+
+prog="
+Catfish
+Geany
+Pcmanfm
+Terminal
+Firefox
+Thunderbird
+Pragha
+Smplayer
+Writer
+Gimp
+Gpicview
+Synaptic
+Screenshot
+Suspend
+ScreenLock
+Exit"
+
+cmd=$(dmenu -nb '#0F171A' -nf '#5DB0C2' -sb '#007187' -sf '#E0FCFF' -fn 'Liberation Sans-11' <<< "$prog")
+
+case ${cmd%% *} in
+
+	Catfish)		exec catfish ;;
+	Geany)			exec geany ;;
+	Pcmanfm)		exec pcmanfm ;;
+	Terminal)		exec urxvt ;;
+	Firefox)		exec firefox ;;
+	Thunderbird)		exec thunderbird ;;
+	Pragha) 		exec pragha ;;
+	Smplayer)		exec smplayer ;;
+	Writer)			exec libreoffice ;;
+	Gimp)			exec gimp ;;
+	Gpicview)		exec gpicview ;;
+	Synaptic)		exec gksudo synaptic ;;
+	Screenshot)		exec gnome-screenshot -i ;;
+	Suspend)		exec systemctl suspend ;;
+	ScreenLock)		exec slock ;;
+	Exit)			exec ld-logout ;;
+esac
