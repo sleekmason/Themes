@@ -1,0 +1,94 @@
+# Openbox sxhkdrc
+# These are the keybinds used in openbox.
+#########################################################
+
+# This List as a cheatsheet.txt
+mod4 + l
+    geany ~/.config/openbox/keys-cheatsheet.txt
+    
+# Openbox Keybinds
+mod4 + o
+	obkey
+
+alt + F1
+    jgmenu_run 
+
+# Rofi
+alt + F2
+    ~/.config/rofi/scripts/rofi-familiar
+
+# Rofi Drun
+alt + F3
+    rofi -show drun
+
+# Dmenu
+alt + F5
+    ~/.config/dmenu/dmenu
+
+# Conky
+mod4 + c
+    ~/.config/conky/scripts/conky-chooser
+    
+# Gammy
+mod4 + g
+    toggle.gammy
+ 
+# jgmenu
+mod4 + j
+    jgmenu_run 
+   
+# Toggle polybar panel on/off
+ctrl  + mod4 + p
+    toggle.polybar
+
+# Toggle tint2 panel on/off
+ctrl + mod4 + t
+    toggle.tint2
+
+# Switch to light theme and back.
+mod4 + y
+   "light-dark-toggle"
+
+# Switch to custom theme and back.
+mod4 + u
+   "custom-theme-toggle"
+
+# terminal
+mod4 + Return
+	xfce4-terminal
+
+mod4 + t
+    xfce4-terminal
+    
+# File Manager	
+mod4 + f
+    thunar
+
+# Editor
+mod4 + e
+    geany  
+
+# Music
+mod4 + m
+    pragha
+
+# Wallpaper
+mod4 + v
+    feh-set-wallpaper
+    
+# Browser
+mod4 + b
+    firefox-esr
+
+# Logout
+mod4 + x
+    ld-logout
+
+# Logout large alternate
+shift + mod4 + x
+    ~/.config/rofi/scripts/nakedquit
+
+# screenshot and selection capture
+alt + Print
+	xfce4-screenshooter
+   
