@@ -1,196 +1,74 @@
 #!/bin/bash
 
-TIMEDATE(){
-TRANS=conky-clock-date-trans.conf
-REG=conky-clock-date.conf
-
+MAIN(){
 if pgrep -x picom > /dev/null 2>&1; then
-if pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-elif pgrep -f $REG > /dev/null; then
-     pkill -f $REG
+if pgrep -f "$FILE" > /dev/null; then
+    pkill -f "$FILE"
+    else   
+    sed -i '/own_window_transparent/c\-- own_window_transparent = true,' "$FILE"
+    sed -i '/own_window_argb_visual/c\own_window_argb_visual = true,' "$FILE"
+    sed -i '/own_window_argb_value/c\own_window_argb_value = 0,' "$FILE"
+    bash -c "conky -c $FILE"
+    fi
 else
-    bash -c "conky -c $HOME/.config/conky/$TRANS"    
+if pgrep -f "$FILE" > /dev/null; then
+    pkill -f "$FILE"
+    else   
+    sed -i '/own_window_transparent/c\own_window_transparent = true,' "$FILE"
+    sed -i '/own_window_argb_visual/c\-- own_window_argb_visual = true,' "$FILE"
+    sed -i '/own_window_argb_value/c\-- own_window_argb_value = 0,' "$FILE"
+    bash -c "conky -c $FILE"
+    fi
 fi
-else
-if pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-elif pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-else
-    bash -c "conky -c $HOME/.config/conky/$REG"    
-fi
-fi
+}
+
+TIMEDATE(){
+	FILE=$HOME/.config/conky/conky-clock-date.conf
+$(MAIN) >/dev/null 2>&1 "$FILE"
 }
 
 FULLCONKY(){
-TRANS=conky-full-trans.conf
-REG=conky-full.conf
-
-if pgrep -x picom > /dev/null 2>&1; then
-if pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-elif pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-else
-    bash -c "conky -c $HOME/.config/conky/$TRANS"    
-fi
-else
-if pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-elif pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-else
-    bash -c "conky -c $HOME/.config/conky/$REG"    
-fi
-fi
+FILE=$HOME/.config/conky/conky-full.conf
+$(MAIN) >/dev/null 2>&1 "$FILE"
 }
 
 TAO(){
-TRANS=conky-tao-trans.conf
-REG=conky-tao.conf
-
-if pgrep -x picom > /dev/null 2>&1; then
-if pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-elif pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-else
-    bash -c "conky -c $HOME/.config/conky/$TRANS"    
-fi
-else
-if pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-elif pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-else
-    bash -c "conky -c $HOME/.config/conky/$REG"    
-fi
-fi
+FILE=$HOME/.config/conky/conky-tao.conf
+$(MAIN) >/dev/null 2>&1 "$FILE"
 }
 
 FORTUNES(){
-TRANS=conky-fortunes-trans.conf
-REG=conky-fortunes.conf
-
-if pgrep -x picom > /dev/null 2>&1; then
-if pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-elif pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-else
-    bash -c "conky -c $HOME/.config/conky/$TRANS"    
-fi
-else
-if pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-elif pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-else
-    bash -c "conky -c $HOME/.config/conky/$REG"    
-fi
-fi
+FILE=$HOME/.config/conky/conky-fortunes.conf
+$(MAIN) >/dev/null 2>&1 "$FILE"
 }
 
 SHORTCUTS(){
-TRANS=conky-shortcuts-trans.conf
-REG=conky-shortcuts.conf
-
-if pgrep -x picom > /dev/null 2>&1; then
-if pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-elif pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-else
-    bash -c "conky -c $HOME/.config/conky/$TRANS"    
-fi
-else
-if pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-elif pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-else
-    bash -c "conky -c $HOME/.config/conky/$REG"    
-fi
-fi
+FILE=$HOME/.config/conky/conky-shortcuts.conf
+$(MAIN) >/dev/null 2>&1 "$FILE"
 }
 
 BUILDDATE(){
-TRANS=conky-build-trans.conf
-REG=conky-build.conf
-
-if pgrep -x picom > /dev/null 2>&1; then
-if pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-elif pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-else
-    bash -c "conky -c $HOME/.config/conky/$TRANS"    
-fi
-else
-if pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-elif pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-else
-    bash -c "conky -c $HOME/.config/conky/$REG"    
-fi
-fi
+FILE=$HOME/.config/conky/conky-build.conf
+$(MAIN) >/dev/null 2>&1 "$FILE"
 }
 
 CURRENT(){
-TRANS=conky-current-trans.conf
-REG=conky-current.conf
-
-if pgrep -x picom > /dev/null 2>&1; then
-if pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-elif pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-else
-    bash -c "conky -c $HOME/.config/conky/$TRANS"    
-fi
-else
-if pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-elif pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-else
-    bash -c "conky -c $HOME/.config/conky/$REG"    
-fi
-fi
+FILE=$HOME/.config/conky/conky-current.conf
+$(MAIN) >/dev/null 2>&1 "$FILE"
 }
 
 WORLDCLOCK(){
-TRANS=conky-world-clock-trans.conf
-REG=conky-world-clock.conf
-
-if pgrep -x picom > /dev/null 2>&1; then
-if pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-elif pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-else
-    bash -c "conky -c $HOME/.config/conky/$TRANS"    
-fi
-else
-if pgrep -f $REG > /dev/null; then
-     pkill -f $REG
-elif pgrep -f $TRANS > /dev/null; then
-     pkill -f $TRANS
-else
-    bash -c "conky -c $HOME/.config/conky/$REG"    
-fi
-fi
+FILE=$HOME/.config/conky/conky-world-clock.conf
+$(MAIN) >/dev/null 2>&1 "$FILE"
 }
 
+export -f MAIN
 export -f TIMEDATE
 export -f FULLCONKY
 export -f FORTUNES
 export -f TAO
 export -f SHORTCUTS
 export -f BUILDDATE
-export -f CURRENT
 export -f WORLDCLOCK
 
 yad --title "Conky" --button=gtk-ok:0 --form --center --width=230 \
@@ -207,5 +85,5 @@ yad --title "Conky" --button=gtk-ok:0 --form --center --width=230 \
     --field="       12H/24H Format!appointment-new":FBTN "bash -c '~/.config/conky/scripts/conky-12to24'" \
     --field="       Bg Transparency!preferences-system":FBTN "bash -c '~/.config/conky/scripts/conky-bg-trans'" \
     --field="             Bg Tint Color!org.xfce.settings.color":FBTN "bash -c '~/.config/conky/scripts/conky-bg-color'" \
-    --field="            Restart Conky!media-playlist-repeat":FBTN "killall -SIGUSR1 conky" \
-    --field="                  Kill Conky!process-stop":FBTN "killall conky" 
+    --field="            Restart Conky!media-playlist-repeat":FBTN "conkyrestart" \
+    --field="                  Kill Conky!process-stop":FBTN "killall conky"
