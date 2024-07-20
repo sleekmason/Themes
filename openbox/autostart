@@ -30,15 +30,19 @@
 
 
 ### Common startup programs. Comment any item no longer wanted.
-. $HOME/.fehbg &
+~/.fehbg &
 picom --daemon &
-tint2 &
+tint2 >/dev/null 2>&1 &
 nm-applet &
 lxpolkit &
 xfsettingsd --daemon &
 pnmixer &
-conky -c ~/.config/conky/conky-shortcuts.conf &
 sxhkd -c "$HOME/.config/openbox/sxhkdrc-open" &
+
+## Start conkys on login if present
+if test -f  "$HOME/.config/conky/scripts/conky-restart-list"; then
+   "$HOME/.config/conky/scripts/conky-restart-list" >/dev/null 2>&1
+fi
 
 ### Start Thunar Daemon if thunar is installed. Uncomment the three lines below to enable.
 # if type 'thunar' &> /dev/null; then
@@ -51,4 +55,5 @@ sxhkd -c "$HOME/.config/openbox/sxhkdrc-open" &
 ### Start brightness tray icon on login
 # sleep 2 && bright-gamma &
 
+vmrestore &
 welcome-backend.sh &

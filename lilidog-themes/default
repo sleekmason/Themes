@@ -6,15 +6,18 @@
 
 ## Lightdm Greeter settings for theme, wallpaper, position, icons, and font. (Requires Sudo)
 sudo sed -i "s/theme-name.*/theme-name = Ozark/g" /etc/lightdm/lightdm-gtk-greeter.conf
-sudo sed -i "s/background.*/background = \/\home\/\wallpaper\/Ozark.jpg/g" /etc/lightdm/lightdm-gtk-greeter.conf
+sudo sed -i "s/background.*/background = \/\home\/\wallpaper\/Ozarkdog.png/g" /etc/lightdm/lightdm-gtk-greeter.conf
 sudo sed -i "s/position.*/position = -8%,end 12%,start/g" /etc/lightdm/lightdm-gtk-greeter.conf
 sudo sed -i "s/font-name.*/font-name = Noto Sans 11/g" /etc/lightdm/lightdm-gtk-greeter.conf
 
 ## System gtktheme, icon theme
 xfconf-query -c xsettings -p /Net/ThemeName -s "Ozark"
-xfconf-query -c xsettings -p /Net/IconThemeName -s "Obsidian-Gray"
+xfconf-query -c xsettings -p /Net/IconThemeName -s "Obsidian-Aqua"
 
 ## Picom transparency
+if ! pgrep -x picom > /dev/null 2>&1; then
+picom --daemon &
+fi
 sed -i 's/^active-opacity =.*/active-opacity = 1.0;/g' "$HOME/.config/picom.conf"
 sed -i 's/^frame-opacity =.*/frame-opacity = 1.0;/g' "$HOME/.config/picom.conf"
 sed -i 's/^inactive-opacity =.*/inactive-opacity = 0.94;/g' "$HOME/.config/picom.conf"
@@ -30,10 +33,12 @@ xmlstarlet ed -L -N o="http://openbox.org/3.4/rc" -u '/o:openbox_config/o:theme/
 openbox --reconfigure
 
 ## Rofi theme
+sed -i 's/^@theme "rounded.*/@theme "rounded-ozark.rasi"/g' "$HOME"/.config/rofi/config.rasi
 sed -i 's/^@theme "familiar.*/@theme "familiar-ozark.rasi"/g' "$HOME"/.config/rofi/themes/familiar/config.rasi
 sed -i 's/^font: "Noto Sans.*/font: "Noto Sans 10";/g' "$HOME"/.config/rofi/themes/familiar/familiar.rasi
-sed -i 's/^icon-theme:.*/icon-theme: "gnome";/g' "$HOME"/.config/rofi/themes/familiar/config.rasi
-sed -i 's/^icon-theme:.*/icon-theme: "gnome";/g' "$HOME"/.config/rofi/config.rasi
+sed -i 's/^font: "Noto Sans.*/font: "Noto Sans 11";/g' "$HOME"/.config/rofi/config.rasi
+sed -i 's/^icon-theme:.*/icon-theme: "Obsidian";/g' "$HOME"/.config/rofi/themes/familiar/config.rasi
+sed -i 's/^icon-theme:.*/icon-theme: "Obsidian";/g' "$HOME"/.config/rofi/config.rasi
 sed -i 's/^show-icons:.*/show-icons: true;/g' "$HOME"/.config/rofi/themes/familiar/config.rasi
 sed -i 's/^show-icons:.*/show-icons: true;/g' "$HOME"/.config/rofi/config.rasi
 rm -f ~/.cache/rofi3.druncache
@@ -54,7 +59,7 @@ sed -i "s/font =.*/font = Noto Sans 11/g" ~/.config/jgmenu/jgmenurc
 
 ## jgmenu Icon Theme
 sed -i 's/^icon_size.*/icon_size = 16/g' ~/.config/jgmenu/jgmenurc
-sed -i 's/^icon_theme =.*/icon_theme = gnome/g' ~/.config/jgmenu/jgmenurc
+sed -i 's/^icon_theme =.*/icon_theme = Obsidian/g' ~/.config/jgmenu/jgmenurc
 sed -i '/@icon.*/d' ~/.config/jgmenu/prepend.csv
 sed -i '/#@icon.*/d' ~/.config/jgmenu/prepend.csv && sed -i '1a@icon,, 	11,11,16,16,2,,,,,/usr/share/icons/gnome/16x16/actions/system-search.png' ~/.config/jgmenu/prepend.csv
 sed -i '/@search.*/d' ~/.config/jgmenu/prepend.csv && sed -i '2a@search,,	35,6,125,26,2,left,top,auto,	#eeeeee 80,Type To Search' ~/.config/jgmenu/prepend.csv
@@ -72,23 +77,24 @@ sed -i 's/^task_align =.*/task_align = left/g' "$HOME"/.config/tint2/tint2rc
 sed -i 's/task_text =.*/task_text = 1/' "$HOME"/.config/tint2/tint2rc
 
 ## Tint2 Icon colors
-sed -i 's/coltint2.*\//coltint2base\//g' "$HOME"/.config/tint2/tint2rc
+sed -i 's/coltint2.*\//coltint2ozark\//g' "$HOME"/.config/tint2/tint2rc
+sed -i 's/\(coltint2ozark.*\)....*$/\1svg/g' "$HOME"/.config/tint2/tint2rc 
 # For executor if enabled
-sed -i 's/^iconcolor=.*/iconcolor="coltint2base.png"/g' "$HOME"/.config/tint2/executors/notifier  >/dev/null 2>&1 &
+sed -i 's/^iconcolor=.*/iconcolor="coltint2ozark.svg"/g' "$HOME"/.config/tint2/executors/notifier  >/dev/null 2>&1 &
 ## Tint2 Font colors
-sed -i 's/taskbar_name_font_color =.*/taskbar_name_font_color = \#CAE0EB 100/' "$HOME"/.config/tint2/tint2rc
-sed -i 's/taskbar_name_active_font_color =.*/taskbar_name_active_font_color = \#CAE0EB 100/' "$HOME"/.config/tint2/tint2rc
-sed -i 's/task_font_color =.*/task_font_color = \#D1E4EB 100/' "$HOME"/.config/tint2/tint2rc
-sed -i 's/clock_font_color =.*/clock_font_color = \#CAE0EB 100/' "$HOME"/.config/tint2/tint2rc
-sed -i 's/tooltip_font_color =.*/tooltip_font_color = \#CAE0EB 100/' "$HOME"/.config/tint2/tint2rc
-sed -i 's/^battery_font_color.*/battery_font_color = #CAE0EB 100/g' "$HOME"/.config/tint2/tint2rc
+sed -i 's/taskbar_name_font_color =.*/taskbar_name_font_color = \#CCDFE8 100/' "$HOME"/.config/tint2/tint2rc
+sed -i 's/taskbar_name_active_font_color =.*/taskbar_name_active_font_color = \#CCDFE8 100/' "$HOME"/.config/tint2/tint2rc
+sed -i 's/task_font_color =.*/task_font_color = \#CCDFE8 100/' "$HOME"/.config/tint2/tint2rc
+sed -i 's/clock_font_color =.*/clock_font_color = \#CCDFE8 100/' "$HOME"/.config/tint2/tint2rc
+sed -i 's/tooltip_font_color =.*/tooltip_font_color = \#CCDFE8 100/' "$HOME"/.config/tint2/tint2rc
+sed -i 's/^battery_font_color.*/battery_font_color = #CCDFE8 100/g' "$HOME"/.config/tint2/tint2rc
 ## Tint2 Icon Size
-     sed -i 's/^button_max_icon_size =.*/button_max_icon_size = 22 100/g' "$HOME"/.config/tint2/tint2rc
+     sed -i 's/^button_max_icon_size =.*/button_max_icon_size = 18 100/g' "$HOME"/.config/tint2/tint2rc
      sed -i 's/^systray_icon_size =.*/systray_icon_size = 22 100/g' "$HOME"/.config/tint2/tint2rc
-     sed -i 's/^launcher_icon_size =.*/launcher_icon_size = 22 100/g' "$HOME"/.config/tint2/tint2rc
-     sed -i 's/^execp_icon_w =.*/execp_icon_w = 22/g' "$HOME"/.config/tint2/tint2rc
-     sed -i 's/^execp_icon_h =.*/execp_icon_h = 22/g' "$HOME"/.config/tint2/tint2rc
-     sed -i 's/^panel_size = 100% .*/panel_size = 100% 24/g' "$HOME"/.config/tint2/tint2rc
+     sed -i 's/^launcher_icon_size =.*/launcher_icon_size = 21 100/g' "$HOME"/.config/tint2/tint2rc
+     sed -i 's/^execp_icon_w =.*/execp_icon_w = 18/g' "$HOME"/.config/tint2/tint2rc
+     sed -i 's/^execp_icon_h =.*/execp_icon_h = 18/g' "$HOME"/.config/tint2/tint2rc
+     sed -i 's/^panel_size = 100% .*/panel_size = 100% 22/g' "$HOME"/.config/tint2/tint2rc
 ## Tint2 font size     
         sed -i 's/^button_font = .*/button_font = Noto Sans 11/g' "$HOME"/.config/tint2/tint2rc
         sed -i 's/^execp_font = .*/execp_font = Noto Sans 11/g' "$HOME"/.config/tint2/tint2rc
@@ -99,7 +105,7 @@ sed -i 's/^battery_font_color.*/battery_font_color = #CAE0EB 100/g' "$HOME"/.con
 killall -SIGUSR1 tint2
 
 ## Feh Background
-feh --bg-scale '/home/wallpaper/Ozark.jpg'
+feh --bg-scale '/home/wallpaper/Ozarkdog.png'
 
 ## Sounds - Dunst
 sed -i '/summary/d' ~/.config/dunst/dunstrc
@@ -127,7 +133,7 @@ killall -q dunst
     sed -i "s/bg_colour=.*/bg_colour=0x000000/g" ~/.config/conky/lua/build.lua
 killall -q conky
 if test -f "$HOME"/.config/conky/conky-shortcuts.conf; then
-set -m; nohup conky -q -c "$HOME/.config/conky/conky-shortcuts.conf" &> /dev/null
+set -m; conky -q -c "$HOME/.config/conky/conky-shortcuts.conf" &> /dev/null
 fi
 #(setsid conky -q -c "$HOME/.config/conky/conky-shortcuts.conf" &)
 
