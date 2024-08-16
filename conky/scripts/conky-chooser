@@ -48,6 +48,16 @@ FILE=$HOME/.config/conky/conky-clock-date.conf
 $(MAIN) >/dev/null 2>&1 "$FILE"
 }
 
+CLOCK(){
+FILE=$HOME/.config/conky/conky-clock.conf
+$(MAIN) >/dev/null 2>&1 "$FILE"
+}
+
+LITE(){
+FILE=$HOME/.config/conky/conky-lite.conf
+$(MAIN) >/dev/null 2>&1 "$FILE"
+}
+
 FULLCONKY(){
 FILE=$HOME/.config/conky/conky-full.conf
 $(MAIN) >/dev/null 2>&1 "$FILE"
@@ -99,6 +109,8 @@ eval "$(RESTART)" >/dev/null 2>&1
 export -f MAIN
 export -f RESTART
 export -f TIMEDATE
+export -f CLOCK
+export -f LITE
 export -f FULLCONKY
 export -f FORTUNES
 export -f TAO
@@ -114,20 +126,23 @@ export -f KILLCONKY
 if ! [[ $(command -v conky) ]]; then
 notify-send --urgency low "Install 'conky-all' to use this dialog"
 else
-yad --title "Conky" --form --center --width=220 --height=300 \
+yad --title "Conky" --form --center --width=220 --height=330 \
 --borders=12 --text="Toggle Selections\n" --text-align=center \
 --window-icon=conky-logomark-violet \
 --buttons-layout=center \
 --button=" 12H/24H!appointment-new:bash -c '~/.config/conky/scripts/conky-12to24'" \
---button=" Restart All!media-playlist-repeat:bash -c conkyrestart >/dev/null 2>&1 &" \
---button=" Kill Conky!process-stop:bash -c KILLCONKY" \
+--button=" Color!org.xfce.settings.color:bash -c ~/.config/conky/scripts/custom-conky-color" \
+--button=" Restart!media-playlist-repeat:bash -c conkyrestart >/dev/null 2>&1 &" \
+--button=" Kill All!process-stop:bash -c KILLCONKY" \
 --button=" Ok!gtk-ok:0" \
     --form --columns=2 \
     --field="          Shortcuts!accessories-text-editor":FBTN "bash -c 'SHORTCUTS' >/dev/null 2>&1 &" \
     --field="        Shortcuts2!accessories-text-editor":FBTN "bash -c 'SHORTCUTS2' >/dev/null 2>&1 &" \
+    --field="        Plain Clock!appointment-soon":FBTN "bash -c 'CLOCK' >/dev/null 2>&1 &" \
     --field="      World Clock!emblem-web":FBTN "bash -c 'WORLDCLOCK' >/dev/null 2>&1 &" \
     --field="     Tao Te Ching!applications-other":FBTN "bash -c 'TAO' >/dev/null 2>&1 &" \
     --field="                 Clock!appointment-soon":FBTN "bash -c 'TIMEDATE' >/dev/null 2>&1 &" \
+    --field="         Basic Info!dialog-information":FBTN "bash -c 'LITE' >/dev/null 2>&1 &" \
     --field="            Full Info!dialog-information":FBTN "bash -c 'FULLCONKY' >/dev/null 2>&1 &" \
     --field="           Fortunes!emblem-package":FBTN "bash -c 'FORTUNES' >/dev/null 2>&1 &" \
     --field="       Install Date!application-certificate":FBTN "bash -c 'BUILDDATE' >/dev/null 2>&1 &"
